@@ -1,6 +1,6 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+train: ..OD-Virat Tiny Dataset/train/images
+val: ..OD-Virat Tiny Dataset/valid/images
+test: ..OD-Virat Tiny Dataset/test/images
 
 nc: 4
 names: ['Bike/Bicycle', 
