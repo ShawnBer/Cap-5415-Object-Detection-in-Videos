@@ -2,10 +2,9 @@ train: ../train/images
 val: ../valid/images
 test: ../test/images
 
-nc: 5
-names: ['person', 
-        'car', 
-        'vehicles', 
-        object', 
-        'bike, bicycles'
+nc: 4
+names: ['Bike/Bicycle', 
+        'Car', 
+        'Carrying_object', 
+        'Person', 
 ]
