@@ -1,7 +1,7 @@
 path: OD-Virat_Tiny_Dataset
 
 train: train/images
-val: valid/images
+val: val/images
 test: test/images
 
 nc: 4
