@@ -4,9 +4,8 @@ train: train/images
 val: val/images
 test: test/images
 
-nc: 4
+nc: 3
 names: ['Bike/Bicycle', 
         'Car', 
-        'Carrying_object', 
         'Person', 
 ]
