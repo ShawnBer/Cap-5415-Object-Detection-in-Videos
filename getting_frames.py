@@ -24,7 +24,7 @@ def main():
 
             # if not cap.isOpened():
             # print('Error: no open video file.')
-
+            # i = 0
             # while a video capture is open loop over all of the frames
             while cap.isOpened():
                 
@@ -36,21 +36,22 @@ def main():
                     
                     #end of video
                     break
-                
+
+                #if frame_count == 23:
+                # i += 1
                 #process the frame
                 print(f"Processing frame {frame_count}")
                 # gray_frame = cv2.cvtcolor(frame, cv2.COLOR_BGR2GRAY)
-                frame_filename = os.path.join(output_folder, f"{video_name}_frame_{frame_count}.jpg")
+                frame_filename = os.path.join(output_folder, f"{frame_count}.jpg")
                 cv2.imwrite(frame_filename, frame)
-
+                #frame_count = 0
+                
                 frame_count += 1
             
             # here we close the video file
             cap.release()
             print(f"saved {frame_count} frames to '{output_folder}'")
     
-    # logic for splitting the frames into test, train, validation
-
 if __name__ == '__main__':
 
     main()
