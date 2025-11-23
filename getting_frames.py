@@ -10,6 +10,12 @@ def main():
     #create base output folder
     os.makedirs(output_folder, exist_ok=True)
 
+    # intialzize the frame counter
+    frame_count = 0
+
+    # set the fps
+    fps = 24
+
     for filename in os.listdir(video_folder):
         if filename.lower().endswith((".mp4")):
             video_path = os.path.join(video_folder, filename)
@@ -20,7 +26,6 @@ def main():
             #opens video
             cap = cv2.VideoCapture(video_path)
             # set the frame count to zero before reading in frames
-            frame_count = 0
 
             # if not cap.isOpened():
             # print('Error: no open video file.')

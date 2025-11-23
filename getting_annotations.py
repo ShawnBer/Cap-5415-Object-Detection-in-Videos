@@ -32,6 +32,9 @@ def main():
         # return if the folder has already been created
         pass
     
+    # initialize the frame counter
+    frame_count = 0
+
     # go through every file within original_annotations folder
     for filename in os.listdir(annotation_folder):
 
@@ -124,10 +127,10 @@ def main():
                 if values[i][0] > biggest_frame:
 
                     biggest_frame = values[i][0]
-                    
-            for i in range(biggest_frame + 1):
+
+            for i in range(biggest_frame):
                 #create separate annotation file for each frame
-                annotations_filename = os.path.join(output_folder, f"{i}.txt")
+                annotations_filename = os.path.join(output_folder, f"{frame_count}.txt")
 
                 for j in range(len(annotations)):
                     
@@ -140,8 +143,9 @@ def main():
                             anno_copy = annotations[j][:5]
                             # conver the list of integers to string then write it to the file
                             file.write(" ".join(map(str, anno_copy)) + "\n")
-            
-                print(f"saved {i} annotations.txt to '{output_folder}'")
+                            
+                print(f"saved {frame_count} annotations.txt to '{output_folder}'")
+                frame_count += 1
                                         
 if __name__ == '__main__':
 
