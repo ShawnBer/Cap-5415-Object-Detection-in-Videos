@@ -10,9 +10,7 @@ import cv2
 import numpy as np
 import yaml
 
-
 IMG_EXTS = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp")
-
 
 def load_yaml(path: str) -> dict:
     with open(path, "r") as f:
