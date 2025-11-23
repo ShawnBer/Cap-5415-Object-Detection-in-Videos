@@ -1,6 +1,6 @@
 # Cap-5415-Object-Detection-in-Videos
 
-Deploying the yolo11 model for object detection within videos
+<center>  Deploying the yolo11 model for object detection within videos </center>
 
 VideoObjectDetection.py and VideoObjectDetection_Tracking.py how to run:
 
@@ -14,8 +14,7 @@ Steps:
 4. Once those three things have been checked you can simply run either .py file and you should have a window pop up that displays the inferences as they are happening
 5. Finally, you can either press 'q' or wait for the video to fully finish to see a saved version of the inferences video in 'Videos/Model_Output/whatever_you_named_it.mp4'
 
-
-Within the folder Creating Frames and Annotations we have three .py files that we utilized for getting frames and annotations from VIRAT
+<center> Within the folder Creating Frames and Annotations we have three .py files that we utilized for getting frames and annotations from VIRAT </center>
 
 getting_annotations.py, getting_frames.py, visualize_yolo_labels.py how to run:
 
@@ -32,7 +31,7 @@ Steps:
 1. The first thing to do is put the video/videos from VIRAT you want to get the frames of in 'Creating Frames and Annotations/input_videos'
 2. Then from there you should be able to run the .py file and it should start printing the .jpg frame it has created and will put the framecount.jpg images in the folder 'Creating Frames and Annotations/frames_output'
 
-Training YOLO 11
+<center> Training YOLO 11 </center>
 
 Utilizing yolo11_training.py:
 Steps:
@@ -40,4 +39,5 @@ Steps:
 1. You can try to run it instantly by just running the .py file
 2. It will automaticaly download the YOLO files needed and the model that is specified which is, yolo_11s
 3. We decided to utilize custom data augmentation command for our training that you can see and edit if needed
+
 4. It will most likely crash unless you have around 16gb of VRAM, so if you want to run a less intense training you can change the imgsz variable to 640 as it being 960 greatly increases its computational cost
