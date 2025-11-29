@@ -5,16 +5,16 @@ import os
 def main():
 
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO("runs/detect/train2/weights/best.pt")
+    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
 
     # get the video path we want to deploy our model on
-    video_path = "Videos/Original/VIRAT_S_000201_01_000384_000589.mp4"
-
+    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
+    
     # setting up video output destination
-    output_path = "Videos/Model_Output/Output.mp4"
+    output_path = 'Videos/Model_Output/output.mp4'
     os.makedirs(os.path.dirname(output_path), exist_ok = True)
 
-    # beginn video capture for open cv
+    # begin video capture for open cv
     cap = cv2.VideoCapture(video_path)
 
     # get video information for the cv2.VideoWrite function
@@ -24,7 +24,7 @@ def main():
     print(f'Video width: {framewidth}, Video height: {frameheight}, FPS: {fps}')
 
     # setting up writing to video for display after done running
-    fourcc = cv2.VideoWriter_fourcc(*"MP4V")
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     video_out = cv2.VideoWriter(output_path, fourcc, fps, (framewidth, frameheight))
 
     # while a video capture is open loop over all of the frames
@@ -39,25 +39,28 @@ def main():
             #end of video
             break
         
-        # have the pretrained model make an inference of the frame
-        results = model(frame)
-        
+        # have the trained model make an inference on the frame
+        results = model(frame, verbose = False)
+
         # plots the annotated results at each inference
-        annotated_result = results[0].plot()
+        bounding_box_frame = results[0].plot()
 
         # shows the frame that the model did an inference on
-        cv2.imshow('Yolov11 Inference', annotated_result)
+        cv2.imshow('Yolov11 Inferences', bounding_box_frame)
 
         # write the frame to save to video for later review
-        video_out.write(annotated_result)
+        video_out.write(bounding_box_frame)
 
         # if you press q it will break the loop early
-        if cv2.waitKey(1) & 0xFF == ord("q"):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+
             break
-   
+    
+    print(f'Video Finished, output saved to: {output_path}')
     cap.release()
     video_out.release()
     cv2.destroyAllWindows()
-
+    
 if __name__ == "__main__":
+    
     main()

@@ -1,4 +1,4 @@
-#python visualize_yolo_labels.py --images "images" --labels "labels" --out "visualized"
+#python visualize_yolo_labels.py --images "frames_output" --labels "annotations_for_frames" --out "visualized"
 
 import argparse
 import glob

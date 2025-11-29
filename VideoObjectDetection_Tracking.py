@@ -5,7 +5,7 @@ import os
 
 def get_count(yolo_class_ids, model_names):
 
-    # initializing variables for tracking class count and creating a new dictionary as the model_names is a dictionary we are going to change
+    # initializing variables for tracking class count and converting the tensor we get to a list
     classid = 0
     count = 0
     classcount = []
@@ -34,18 +34,19 @@ def get_centroid(bounding_boxes):
     centroids= []
     i = 0
 
-    # iterate over all of the boxes within the bounding boxes 
+    # iterate over all of the boxes within the bounding boxes that yolo gives
     for box in bounding_boxes:
 
         # convert the boundingboxes.xyxy data to a list and then set x1, y1, x2, y2 equal to it 
         x1, y1, x2, y2 = bounding_boxes.xyxy[i].tolist()
         
-        # centroidx = (xtop_left + x bottom_right)/2
-        # centroidx = (ytop_left + y bottom_right)/2
+        # centroidx = (xtop_left + xbottom_right)/2
+        # centroidy = (ytop_left + ybottom_right)/2
+        # calculate the centroids of the bounding boxes by utilizing the formula above
         centroid_x = (x1 + x2) / 2
         centroid_y = (y1 + y2) / 2
 
-        # append the centroid to the list
+        # append the centroid to the list and convert it to integer
         centroid_x_y = (int(centroid_x), int(centroid_y))
         centroids.append(centroid_x_y)
         i += 1
@@ -57,6 +58,7 @@ def get_centroid_euclidian(current_centroids, old_centroids):
     # convert current centroids and past centroid into a numpy array for calculating euclidian distance
     current_centroids = np.array(current_centroids)
     old_centroids = np.array(old_centroids)
+
     # initialize list for the final centroids and the id list
     final_centroids = []
     id_list = []
@@ -64,33 +66,43 @@ def get_centroid_euclidian(current_centroids, old_centroids):
     # iterate over the current centroids of the frame
     for i in range(len(current_centroids)): 
 
+        # reset variable ever iteration to make sure we don't keep previous iteration values
+        lowest = 9999999
+        tempj = 0
+
         # iterate over the old centroids we have already found
         for j in range(len(old_centroids)):
             
-            # calculate the distance between the current and the old to find if there are any that are similiar
+            # calculate the distance between the current and the old centroids to find if there are any that are similiar
             euclidian_distance = np.sqrt(np.sum((current_centroids[i] - old_centroids[j]) ** 2))
 
             # if j has not already been assigned as an id to something check to see if the euclidian distance is lower than a threshold and if it is assign the id of j to it
-            if j not in id_list:
-
-                if euclidian_distance < 30:
-                    
-                    id_list.append(j)
-                    final_centroids.append(current_centroids[i])
+            # if j not in id_list:
                 
+            # check to see if it is the lowest distance found so far
+            if euclidian_distance < lowest:
+                
+                # if it is set lowest to this new distance and store the iteration it happend for the id
+                lowest = euclidian_distance
+                tempj = j
+
+        # add the tracking id we found to the list of ids and append the centroids
+        id_list.append(tempj)
+        final_centroids.append(current_centroids[i])
+                    
     return final_centroids, id_list
 
 def main():
 
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO('runs/detect/Fourth_Train/weights/best.pt')
+    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
 
     # get the video path we want to deploy our model on
     # important to set the video path of the video you want to test here
-    video_path = 'Videos/Original/VIRAT_S_050200_00_000106_000380.mp4'
+    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
 
     # setting up video output destination
-    output_path = 'Videos/Model_Output/Third_Model_Video4.mp4'  
+    output_path = 'Videos/Model_Output/output.mp4'  
     os.makedirs(os.path.dirname(output_path), exist_ok = True)
 
     # begin video capture for open cv
@@ -107,7 +119,7 @@ def main():
     video_out = cv2.VideoWriter(output_path, fourcc, fps, (framewidth, frameheight))
 
     # initializing old_centroids
-    old_centroids = 0
+    old_centroids = []
 
     # while a video capture is open loop over all of the frames
     while cap.isOpened():
@@ -122,7 +134,7 @@ def main():
             break
         
         # have the trained model make an inference on the frame
-        results = model(frame, verbose = False, iou = 0.6)
+        results = model(frame, verbose = False, conf = 0.4, iou = 0.4)
         
         # this gives us the detection information for information relating to the bounding boxes (coordinates, confidence, and class ids)
         boxes = results[0].boxes
@@ -140,7 +152,7 @@ def main():
         centroids = get_centroid(boxes)
 
         # check to see if we have centroid values stored
-        if old_centroids != 0:
+        if old_centroids:
             
             # get the euclidian distance of the new centroids and old centroids
             compared_centroids, id_list = get_centroid_euclidian(centroids, old_centroids)
@@ -152,18 +164,18 @@ def main():
             while j < len(compared_centroids):
                 
                 # put on the output frame the circle for the centroid of the object
-                #cv2.circle(bounding_box_frame, compared_centroids[j], 5, (255, 0, 0), -1)
-                # display the centroids and the id that is associated with them between frames
+                # cv2.circle(bounding_box_frame, compared_centroids[j], 5, (255, 0, 0), -1)
+
+                # display the id that is associated with the centroids between frames and increment j
                 cv2.putText(bounding_box_frame, f'id: {id_list[j]}', compared_centroids[j], cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 125))
                 j += 1
             
-
         # initialize i as zero to iterate over the model names for putting text on the image
         i = 0
         # set values for the rgb values for the text for each class
         rgb_values = [(255, 0, 0), (255, 255, 0), (255, 255, 255)]
         # set positions for the text 
-        positions = [(10, 30), (0, 60), (10, 90)]
+        positions = [(10, 30), (10, 60), (10, 90)]
 
         # iterate over the amonut of names setup in the model and create a visual place for the class
         while i < len(model.names):
