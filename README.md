@@ -1,16 +1,7 @@
 # Cap-5415-Object-Detection-in-Videos
 
 # Necessary Packages:
-ultralytics
-numpy
-cv2
-os
-argparse
-glob
-sys
-typing
-yaml
-pytorch
+ultralytics, numpy, cv2, os, argparse, glob, sys, typing, yaml, pytorch
 
 # Deploying the yolo11 model for object detection within videos
 
@@ -55,6 +46,7 @@ Steps:
 3. We decided to utilize custom data augmentation command for our training that you can see and edit if needed
 
 4. It will most likely crash unless you have around 16gb of VRAM, so if you want to run a less intense training you can change the imgsz variable to 640 as it being 960 greatly increases its computational cost
+
 
 
 
