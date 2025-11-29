@@ -48,5 +48,7 @@ Steps:
 4. It will most likely crash unless you have around 16gb of VRAM, so if you want to run a less intense training you can change the imgsz variable to 640 as it being 960 greatly increases its computational cost
 
 # Original Dataset that we modified
-https://github.com/hayatkhan8660-maker/OD-VIRAT
+https://github.com/hayatkhan8660-maker/OD-VIRAT  
+
 This is the citation they have but I don't know if this is right: MMDetection Contributors. (2018). OpenMMLab Detection Toolbox and Benchmark [Computer software]. https://github.com/open-mmlab/mmdetection
+
