@@ -5,13 +5,13 @@ import os
 def main():
 
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO('runs/detect/Fifth_Train/weights/best.pt')
+    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
 
     # get the video path we want to deploy our model on
-    video_path = 'Videos/Original/VIRAT_S_050200_00_000106_000380.mp4'
+    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
     
     # setting up video output destination
-    output_path = 'Videos/Model_Output/Fourth_Model_Video5.mp4'
+    output_path = 'Videos/Model_Output/output.mp4'
     os.makedirs(os.path.dirname(output_path), exist_ok = True)
 
     # begin video capture for open cv

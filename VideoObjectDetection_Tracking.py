@@ -95,14 +95,14 @@ def get_centroid_euclidian(current_centroids, old_centroids):
 def main():
 
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO('runs/detect/Third_Train/weights/best.pt')
+    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
 
     # get the video path we want to deploy our model on
     # important to set the video path of the video you want to test here
-    video_path = 'Videos/Original/VIRAT_S_010206_01_000124_000206.mp4'
+    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
 
     # setting up video output destination
-    output_path = 'Videos/Model_Output/Third_Model_Video1.mp4'  
+    output_path = 'Videos/Model_Output/output.mp4'  
     os.makedirs(os.path.dirname(output_path), exist_ok = True)
 
     # begin video capture for open cv
