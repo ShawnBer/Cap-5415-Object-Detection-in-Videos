@@ -47,7 +47,19 @@ Optional flags
 * --names <name1 name2 ...>: Override class names (e.g., bike car person).
 * --warn-only: Do not error on missing/invalid labels; just print warnings and continue.
 
+CocoToYolo.py
+This script reads a json and outputs YOLO labels, one .txt per image, with normalized center coordinates and dimensions.
+1. First you need to get the path to the folder with the Coco annotations
+2. Open the .py file and edit the Open file (line 5) with the path
+3. run file
+Optional
+* you can edit the output folder name on line 11
 
+Combine.py
+Gathers and renumbers frames from all subfolders that are in a specific folder, into a single combined folder with sequential filenames
+1. Open the .py and edit the OUTPUT_DIR and SOURCE_DIR to match your folders.
+2. Inside your SOURCE_DIR, there should be subfolders for each video, each containing extracted frames
+3. Run the script
 
 # Training YOLO 11
 
