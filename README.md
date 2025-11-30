@@ -36,6 +36,19 @@ Steps:
 
 These two above will create matching set of frames with annotations in YOLO format from the VIRAT dataset.
 
+visualize_yolo_labels.py:
+This script overlays YOLO TXT labels on images and export annotated previews. The script reports useful stats (missing labels, empty files, invalid lines, out‑of‑bounds boxes) and writes previews to an output folder. To use it:
+1. First you need to get the path to the folders for both your images and labels
+2. Run the .py file using this command:  python visualize_yolo_labels.py --images "your-images-folder-path" --labels "your-labels-folder-path" --out "Output-folder-name"
+    - or python visualize_yolo_labels.py --data "dataset/data.yaml" --split "val" --out "Output-folder-name"
+    This grabs paths from the data.yaml instead and uses the paths to val
+Optional flags
+* --max <N>: Visualize only the first N images.
+* --names <name1 name2 ...>: Override class names (e.g., bike car person).
+* --warn-only: Do not error on missing/invalid labels; just print warnings and continue.
+
+
+
 # Training YOLO 11
 
 Utilizing yolo11_training.py:
