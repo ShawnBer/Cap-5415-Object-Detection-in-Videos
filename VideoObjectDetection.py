@@ -1,21 +1,32 @@
 from ultralytics import YOLO
 import cv2
 import os
+from pathlib import Path
 
 def main():
 
+    script_dir = Path(__file__).resolve().parent
+
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
+    model_path = script_dir / "runs" / "detect" / "Sixth_Train" / "weights" / "best.pt"
+    model = YOLO(str(model_path))
 
     # get the video path we want to deploy our model on
-    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
+    video_path = script_dir / "Videos" / "Original" / "VIRAT_S_010001_09_000921_000952.mp4"
     
     # setting up video output destination
-    output_path = 'Videos/Model_Output/output.mp4'
-    os.makedirs(os.path.dirname(output_path), exist_ok = True)
+    output_path = script_dir / "Videos" / "Model_Output" / "output.mp4"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if not model_path.exists():
+        print(f"Error: model weights not found: {model_path}")
+        return
+    if not video_path.exists():
+        print(f"Error: input video not found: {video_path}")
+        return
 
     # begin video capture for open cv
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(str(video_path))
 
     # get video information for the cv2.VideoWrite function
     framewidth = int(cap.get(3))

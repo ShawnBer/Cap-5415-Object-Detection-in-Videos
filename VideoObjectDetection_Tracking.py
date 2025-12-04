@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import numpy as np
 import cv2
 import os
+from pathlib import Path
 
 def get_count(yolo_class_ids, model_names):
 
@@ -94,16 +95,31 @@ def get_centroid_euclidian(current_centroids, old_centroids):
 
 def main():
 
+    script_dir = Path(__file__).resolve().parent
+
     # sets the model to our pretrained model that we trained earlier
-    model = YOLO('runs/detect/Sixth_Train/weights/best.pt')
+    model_path = (script_dir / "runs" / "detect" / "Sixth_Train" / "weights" / "best.pt")
 
     # get the video path we want to deploy our model on
     # important to set the video path of the video you want to test here
-    video_path = 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4'
-
+    video_path = script_dir / "Videos" / "Original" / "VIRAT_S_010001_09_000921_000952.mp4"
     # setting up video output destination
-    output_path = 'Videos/Model_Output/output.mp4'  
-    os.makedirs(os.path.dirname(output_path), exist_ok = True)
+    output_path = script_dir / "Videos" / "Model_Output" / "output.mp4"  
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+
+    if not model_path.exists():
+        print(f"Error: model weights not found: {model_path}")
+        return
+    if not video_path.exists():
+        print(f"Error: input video not found: {video_path}")
+        return
+    
+    
+    # Load YOLO model
+    model = YOLO(str(model_path))
+
+
 
     # begin video capture for open cv
     cap = cv2.VideoCapture(video_path)
