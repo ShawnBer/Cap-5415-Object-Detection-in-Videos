@@ -1,14 +1,19 @@
 import json
 import os
+from pathlib import Path
+
+script_dir = Path(__file__).resolve().parent
+annotations_path = script_dir / "test_annotations.json"
+output_dir = script_dir / "yolo_labels"
 
 #Load COCO annotations
-with open("test_annotations.json", "r") as f:
+with annotations_path.open("r", encoding="utf-8") as f:
     coco = json.load(f)
 
 images = {img["id"]: img for img in coco["images"]}
 annotations = coco["annotations"]
 
-output_dir = "yolo_labels"
+# Create output directory
 os.makedirs(output_dir, exist_ok=True)
 
 #convert COCO annotations to YOLO format loop

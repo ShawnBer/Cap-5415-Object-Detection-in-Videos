@@ -5,6 +5,7 @@ import glob
 import os
 import sys
 from typing import List, Optional, Tuple
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -154,6 +155,8 @@ def resolve_from_data_yaml(data_yaml: str, split: str) -> Tuple[str, str, List[s
 
 def main():
 
+    script_dir = Path(__file__).resolve().parent
+
     ap = argparse.ArgumentParser(description="Visualize YOLO TXT labels on images (no inference).")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--images", help="Path to images folder.")
@@ -166,6 +169,31 @@ def main():
     ap.add_argument("--warn-only", action="store_true",
                     help="Continue on errors; otherwise, raise for critical mismatches.")
     args = ap.parse_args()
+
+    
+
+    script_dir = Path(__file__).resolve().parent
+
+    def resolve_rel(p):
+        # If p is None, leave it; if it is absolute, leave it; else make it script-dir relative
+        if p is None:
+            return None
+        p = Path(p)
+        return p if p.is_absolute() else (script_dir / p)
+
+    #Resolve --out always (it is required)
+    args.out = str(resolve_rel(args.out))
+
+    if args.data:
+        # Resolve data.yaml path
+        args.data = str(resolve_rel(args.data))
+    else:
+        # Resolve images/labels if provided
+        if args.images:
+            args.images = str(resolve_rel(args.images))
+        if args.labels:
+            args.labels = str(resolve_rel(args.labels))
+
 
     if args.data:
         img_dir, lbl_dir, yaml_names = resolve_from_data_yaml(args.data, args.split)
