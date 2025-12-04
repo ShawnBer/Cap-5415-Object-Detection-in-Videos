@@ -9,11 +9,11 @@ VideoObjectDetection.py and VideoObjectDetection_Tracking.py how to run:
 
 In both of these .py files they have the same initialization steps in order to get them working.
 Steps:
-1. First thing is make sure that you have the correct file pathing of one of our training runs from yolo set in **line 8 for VideoObjectDetection.py** and in **line 88 for VideObjectDetection_Tracking.py** 
-(for example: 'runs/detect/Sixth_Train/weights/best.pt')
-2. Second thing is to put a video you want to test from virat within the folder pathing, **Videos/Original/**. And then in **line 11 for VideoObjectDetection.py** and in **line 92 for VideObjectDetection_Tracking.py** update the line to reflect the name of the video you uploaded
-(for example: 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4')
-3. Third thing is that you should change the last part of the output path in **line 14 for VideoObjectDetection.py** and in **line 95 for VideObjectDetection_Tracking.py** between different videos if you don't want the outupts to overwrite eachother, 'Videos/Model_Output/some_name.mp4'
+1. First thing is make sure that you have the correct file pathing of one of our training runs from yolo set in **line 11 for VideoObjectDetection.py** and in **line 102 for VideObjectDetection_Tracking.py** 
+(for example: model_path = (script_dir / "runs" / "detect" / "Sixth_Train" / "weights" / "best.pt"), for 'runs/detect/Sixth_Train/weights/best.pt')
+2. Second thing is to put a video you want to test from virat within the folder pathing, **Videos/Original/**. And then in **line 15 for VideoObjectDetection.py** and in **line 106 for VideObjectDetection_Tracking.py** update the line to reflect the name of the video you uploaded
+(for example: for a video within this path, 'Videos/Original/VIRAT_S_010001_09_000921_000952.mp4', you would set video_path to, video_path = script_dir / "Videos" / "Original" / "VIRAT_S_010001_09_000921_000952.mp4" )
+3. Third thing is that you should change the last part of the output path in **line 18 for VideoObjectDetection.py** and in **line 108 for VideObjectDetection_Tracking.py** between different videos if you don't want the outupts to overwrite eachother, for path of 'Videos/Model_Output/some_name.mp4, you would do, output_path = script_dir / "Videos" / "Model_Output" / "some_name.mp4"  
 4. Once those three things have been checked you can simply run either .py file and you should have a window pop up that displays the inferences as they are happening
 5. Finally, you can either press 'q' or wait for the video to fully finish to see a saved version of the inferences video in 'Videos/Model_Output/whatever_you_named_it.mp4'
 
@@ -26,7 +26,7 @@ Within this folder there is 3 .py files, getting_annotations.py, getting_frames.
 Utilizing getting_annotations.py:
 Steps:
 1. The first thing to do is put the annotation/annotations from VIRAT you want to get the annotations of in 'Creating Frames and Annotations/original_annotations'
-2. Then open up the .py file and edit the **width and height lines 17 and 18** to reflect the width and height of the input annotations original video dimensions
+2. Then open up the .py file and edit the **width and height lines 20 and 21** to reflect the width and height of the input annotations original video dimensions
 3. Then from there you should be able to run the .py file and it should start printing the number of annotations it is on and will put the yolo format annotations in the folder 'Creating Frames and Annotations/annotations_for_frames'
 
 Utilizing getting_frames.py:
@@ -80,5 +80,6 @@ https://ucf-my.sharepoint.com/:f:/g/personal/ch317108_ucf_edu/IgDec0R1RTtaT7BdZn
 
 # Citation For Original Dataset
 This is the citation they have but I don't know if this is right: MMDetection Contributors. (2018). OpenMMLab Detection Toolbox and Benchmark [Computer software]. https://github.com/open-mmlab/mmdetection
+
 
 
