@@ -1,17 +1,27 @@
 import cv2 
 import os
+from pathlib import Path
 
 def main():
     
+    script_dir = Path(__file__).resolve().parent
+
     #Folder with only videos
-    video_folder = "input_videos"
-    output_folder = "frames_output"
+    video_folder = script_dir / "input_videos"
+    output_folder = script_dir / "frames_output"
     
     #create base output folder
-    os.makedirs(output_folder, exist_ok=True)
+    output_folder.mkdir(parents=True, exist_ok=True)
 
     #intialzize the frame counter
     frame_count = 0
+
+    
+    # Validate input folder
+    if not video_folder.exists():
+        print(f"Error: input folder not found: {video_folder}")
+        return
+
 
     for filename in os.listdir(video_folder):
         if filename.lower().endswith((".mp4")):

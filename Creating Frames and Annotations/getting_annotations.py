@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 def centerpoint(bboxtopleftx, bboxtoplefty, boundingboxwidth, boundingboxheight, image_width, image_height):
 
@@ -12,26 +13,33 @@ def centerpoint(bboxtopleftx, bboxtoplefty, boundingboxwidth, boundingboxheight,
     return normalized_x_center, normalized_y_center, normalized_width, normalized_height
 
 def main():
+
+    script_dir = Path(__file__).resolve().parent
     
     #specify the image width and height before running
     width = 1280
     height = 720
 
     #folder for the annotations
-    annotation_folder = 'original_annotations'
+    annotation_folder = script_dir / 'original_annotations'
     #creating an output folder for all of the annotations 
-    output_folder = 'annotations_for_frames'
+    output_folder = script_dir / 'annotations_for_frames'
 
     #if there is no folder currently for the output annotations create one
     if not os.path.exists(output_folder):
         
         #create a folder based on the path we described
-        os.makedirs(output_folder)
+        output_folder.mkdir(parents=True, exist_ok=True)
     else:
         #return if the folder has already been created
         pass
     
     frame_count = 0
+
+    # Validate input folder
+    if not annotation_folder.exists():
+        print(f"Error: input folder not found: {annotation_folder}")
+        return
 
     #go through every file within original_annotations folder
     for filename in os.listdir(annotation_folder):
