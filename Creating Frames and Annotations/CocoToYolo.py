@@ -2,7 +2,7 @@ import json
 import os
 
 #Load COCO annotations
-with open("test_annotations_new.json", "r") as f:
+with open("test_annotations.json", "r") as f:
     coco = json.load(f)
 
 images = {img["id"]: img for img in coco["images"]}
