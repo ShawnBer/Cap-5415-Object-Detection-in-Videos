@@ -75,5 +75,10 @@ Steps:
 # Original Dataset that we modified
 https://github.com/hayatkhan8660-maker/OD-VIRAT  
 
+# Our final version of the dataset
+https://ucf-my.sharepoint.com/:f:/g/personal/ch317108_ucf_edu/IgDec0R1RTtaT7BdZnRAzkUrAfkwX2WqlfnRzp8qvquAsYc?e=LEkVCA
+
+# Citation For Original Dataset
 This is the citation they have but I don't know if this is right: MMDetection Contributors. (2018). OpenMMLab Detection Toolbox and Benchmark [Computer software]. https://github.com/open-mmlab/mmdetection
+
 
