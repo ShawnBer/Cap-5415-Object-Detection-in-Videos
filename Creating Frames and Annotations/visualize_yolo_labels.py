@@ -153,6 +153,7 @@ def resolve_from_data_yaml(data_yaml: str, split: str) -> Tuple[str, str, List[s
 
 
 def main():
+
     ap = argparse.ArgumentParser(description="Visualize YOLO TXT labels on images (no inference).")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--images", help="Path to images folder.")
@@ -187,6 +188,7 @@ def main():
         print("[WARN] No images found. Check your path and extensions.")
         sys.exit(0)
 
+    #Main processing loop with stats tracking
     total = len(image_paths)
     counts = {
         "processed": 0,
@@ -213,6 +215,7 @@ def main():
 
         vis, stats = draw_yolo_boxes(img, label_path, class_names=class_names)
 
+        #Update counts based on stats
         if stats["file_missing"]:
             counts["missing_label"] += 1
         if stats["file_empty"]:
@@ -241,7 +244,7 @@ def main():
     print(f"Out-of-bounds bb : {counts['out_of_bounds']}")
     print(f"Output previews  : {args.out}")
 
-    #Simple sanity alert
+    #sanity check
     if not args.warn_only and (counts["missing_label"] > 0 or counts["invalid_lines"] > 0):
         print("\n[ERROR] Found issues. Re-run with --warn-only to ignore.")
         sys.exit(2)
