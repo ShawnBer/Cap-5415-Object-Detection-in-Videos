@@ -18,9 +18,9 @@ def main():
     height = 720
 
     #folder for the annotations
-    annotation_folder = 'Creating Frames and Annotations/original_annotations'
+    annotation_folder = 'original_annotations'
     #creating an output folder for all of the annotations 
-    output_folder = 'Creating Frames and Annotations/annotations_for_frames'
+    output_folder = 'annotations_for_frames'
 
     #if there is no folder currently for the output annotations create one
     if not os.path.exists(output_folder):

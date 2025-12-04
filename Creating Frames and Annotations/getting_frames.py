@@ -4,8 +4,8 @@ import os
 def main():
     
     #Folder with only videos
-    video_folder = "Creating Frames and Annotations/input_videos"
-    output_folder = "Creating Frames and Annotations/frames_output"
+    video_folder = "input_videos"
+    output_folder = "frames_output"
     
     #create base output folder
     os.makedirs(output_folder, exist_ok=True)
